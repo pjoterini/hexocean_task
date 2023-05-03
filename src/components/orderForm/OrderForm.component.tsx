@@ -1,31 +1,47 @@
 import { Box, Button, MenuItem, Stack } from '@mui/material';
+import axios from 'axios';
 import { Select, TextField } from 'mui-rff';
 import { Form } from 'react-final-form';
 
-enum dishType {
+enum type {
   pizza = 'pizza',
   soup = 'soup',
   sandwich = 'sandwich',
 }
 
 interface Dish {
-  dishName: string;
-  preparationTime: string;
-  dishType: string;
-  numberOfPizzaSlices?: number;
+  name: string;
+  preparation_time: string;
+  type: string;
+  no_of_slices?: number;
   diameter?: number;
-  spiciness?: number;
-  numberOfBreadSlices?: number;
+  spiciness_scale?: number;
+  slices_of_bread?: number;
 }
 
 const onSubmit = async (values: Dish) => {
-  window.alert(JSON.stringify(values));
+  axios
+    .post('https://umzzcc503l.execute-api.us-west-2.amazonaws.com/dishes/', {
+      name: values.name,
+      preparation_time: values.preparation_time,
+      type: values.type,
+      no_of_slices: values.no_of_slices,
+      diameter: values.diameter,
+      spiciness_scale: values.spiciness_scale,
+      slices_of_bread: values.slices_of_bread,
+    })
+    .then(function (response) {
+      console.log(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 };
 
 async function validate(values: Dish) {
-  // if (values.dishName.length > 8) {
-  //   return { dishName: 'dish name too long' };
-  // }
+  if (values.name.length > 8) {
+    return { name: 'dish name too long' };
+  }
   return;
 }
 
@@ -35,22 +51,22 @@ const OrderForm = () => {
       onSubmit={onSubmit}
       validate={validate}
       initialValues={{
-        dishName: '',
-        preparationTime: '',
-        dishType: '',
-        numberOfPizzaSlices: 0,
-        diameter: 0,
-        spiciness: 0,
-        numberOfBreadSlices: 0,
+        name: '',
+        preparation_time: '',
+        type: '',
+        no_of_slices: undefined,
+        diameter: undefined,
+        spiciness_scale: undefined,
+        slices_of_bread: undefined,
       }}
-      render={({ handleSubmit, form, submitting, pristine, values }) => (
+      render={({ handleSubmit, values }) => (
         <form onSubmit={handleSubmit}>
           <Stack spacing={2} width="30vw" sx={{ minWidth: 300 }}>
-            <TextField label="Dish Name" name="dishName" required={true} />
+            <TextField label="Dish Name" name="name" required={true} />
             <TextField
               type="time"
               label="Preparation Time"
-              name="preparationTime"
+              name="preparation_time"
               required={true}
               InputLabelProps={{
                 shrink: true,
@@ -60,25 +76,25 @@ const OrderForm = () => {
               }}
             />
 
-            <Select label="Dish Type" name="dishType" required={true}>
-              <MenuItem value={dishType.pizza}>
-                <Box textTransform="capitalize">{dishType.pizza}</Box>
+            <Select label="Dish Type" name="type" required={true}>
+              <MenuItem value={type.pizza}>
+                <Box textTransform="capitalize">{type.pizza}</Box>
               </MenuItem>
-              <MenuItem value={dishType.soup}>
-                <Box textTransform="capitalize">{dishType.soup}</Box>
+              <MenuItem value={type.soup}>
+                <Box textTransform="capitalize">{type.soup}</Box>
               </MenuItem>
-              <MenuItem value={dishType.sandwich}>
-                <Box textTransform="capitalize">{dishType.sandwich}</Box>
+              <MenuItem value={type.sandwich}>
+                <Box textTransform="capitalize">{type.sandwich}</Box>
               </MenuItem>
             </Select>
 
-            {values.dishType === dishType.pizza && (
+            {values.type === type.pizza && (
               <>
                 <TextField
                   type="number"
                   label="Pizza Slices"
-                  name="numberOfPizzaSlices"
-                  required={true}
+                  name="no_of_slices"
+                  required={values.type === type.pizza && true}
                   inputProps={{
                     min: 1,
                     max: 8,
@@ -88,7 +104,7 @@ const OrderForm = () => {
                   type="number"
                   label="Diameter"
                   name="diameter"
-                  required={true}
+                  required={values.type === type.pizza && true}
                   inputProps={{
                     step: 0.1,
                     min: 18,
@@ -97,24 +113,24 @@ const OrderForm = () => {
                 />
               </>
             )}
-            {values.dishType === dishType.soup && (
+            {values.type === type.soup && (
               <TextField
                 type="number"
                 label="Spiciness"
-                name="spiciness"
-                required={true}
+                name="spiciness_scale"
+                required={values.type === type.soup && true}
                 inputProps={{
                   min: 1,
                   max: 10,
                 }}
               />
             )}
-            {values.dishType === dishType.sandwich && (
+            {values.type === type.sandwich && (
               <TextField
                 type="number"
                 label="Bread Slices"
-                name="numberOfBreadSlices"
-                required={true}
+                name="slices_of_bread"
+                required={values.type === type.sandwich && true}
                 inputProps={{
                   min: 0,
                   max: 4,
