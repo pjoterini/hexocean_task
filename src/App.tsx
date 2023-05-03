@@ -1,7 +1,11 @@
-import './App.css';
+import OrderFormContainer from './components/orderForm/OrderForm.container';
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <OrderFormContainer />
+    </>
+  );
 }
 
 export default App;
