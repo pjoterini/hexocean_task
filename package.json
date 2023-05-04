@@ -10,12 +10,27 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@date-io/core": "^2.16.0",
+    "@date-io/date-fns": "^2.16.0",
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/material": "^5.12.3",
+    "@mui/x-date-pickers": "^6.3.0",
+    "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
+    "dayjs": "^1.11.7",
+    "final-form": "^4.20.9",
+    "mui-rff": "^6.1.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-final-form": "^6.5.9",
+    "yup": "^1.1.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/yup": "^0.32.0",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-react-swc": "^3.0.0",
