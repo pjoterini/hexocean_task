@@ -2,7 +2,7 @@ import { makeValidate } from 'mui-rff';
 import { mixed, number, object, string } from 'yup';
 
 const dishSchema = object().shape({
-  name: string().max(30).required(),
+  name: string().min(3).max(30).required(),
   preparation_time: string().required(),
   type: mixed().oneOf(['pizza', 'soup', 'sandwich']).required(),
   no_of_slices: number().when('type', {
@@ -23,6 +23,6 @@ const dishSchema = object().shape({
   }),
 });
 
-// 'as any' is used here because of mui-rff library incompatibility
+// 'as any' is used here because of mui-rff library incompatibility with yup
 // eslint-disable-next-line
 export const validateDish = makeValidate(dishSchema as any);

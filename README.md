@@ -11,6 +11,10 @@ yarn > install dependencies
 
 yarn dev > run project in dev environment
 
+## Features
+
 I used react-final-form instead of redux-form because redux-form documentation says it is deprecated and suggests using rff.
+
+## Time
 
 Time invested: around 8hr

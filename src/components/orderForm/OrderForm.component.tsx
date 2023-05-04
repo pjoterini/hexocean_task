@@ -119,8 +119,6 @@ const OrderForm = ({ onSubmit }: IProps) => {
               Submit
             </Button>
           </Stack>
-
-          <pre>{JSON.stringify(values)}</pre>
         </form>
       )}
     />

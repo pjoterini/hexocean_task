@@ -5,7 +5,7 @@ import axios from 'axios';
 const OrderFormContainer = () => {
   const onSubmit = async (values: Dish) => {
     axios
-      .post('https://umzzcc503l.execute-api.us-west-2.amazonaws.com/dishes/', {
+      .post(`${import.meta.env.VITE_BASE_URL}dishes/`, {
         name: values.name,
         preparation_time: values.preparation_time,
         type: values.type,
