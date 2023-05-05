@@ -1,11 +1,12 @@
 import { Typography } from '@mui/material';
-import OrderForm, { Dish } from './OrderForm.component';
 import axios from 'axios';
+import OrderForm from './OrderForm.component';
+import { IDish } from './interfaces';
 
 const OrderFormContainer = () => {
-  const onSubmit = async (values: Dish) => {
+  const onSubmit = async (values: IDish) => {
     axios
-      .post(`${import.meta.env.VITE_BASE_URL}dishes/`, {
+      .post(`${import.meta.env.VITE_BASE_URL}/dishes/`, {
         name: values.name,
         preparation_time: values.preparation_time,
         type: values.type,

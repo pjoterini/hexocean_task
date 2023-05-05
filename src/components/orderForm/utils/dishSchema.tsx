@@ -1,24 +1,27 @@
 import { makeValidate } from 'mui-rff';
 import { mixed, number, object, string } from 'yup';
+import { dishType } from '../enums';
+
+const dishTypes = Object.values(dishType);
 
 const dishSchema = object().shape({
   name: string().min(3).max(30).required(),
   preparation_time: string().required(),
-  type: mixed().oneOf(['pizza', 'soup', 'sandwich']).required(),
+  type: mixed().oneOf(dishTypes).required(),
   no_of_slices: number().when('type', {
-    is: 'pizza',
+    is: dishTypes[0],
     then: no_of_slices => no_of_slices.required().min(1).max(8),
   }),
   diameter: number().when('type', {
-    is: 'pizza',
+    is: dishTypes[0],
     then: diameter => diameter.required().min(18).max(40),
   }),
   spiciness_scale: number().when('type', {
-    is: 'soup',
+    is: dishTypes[1],
     then: spiciness => spiciness.required().min(1).max(10),
   }),
   slices_of_bread: number().when('type', {
-    is: 'sandwich',
+    is: dishTypes[2],
     then: slices_of_bread => slices_of_bread.required().min(0).max(4),
   }),
 });

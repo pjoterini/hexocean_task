@@ -1,29 +1,17 @@
 import { Box, Button, MenuItem, Stack } from '@mui/material';
 import { Select, TextField } from 'mui-rff';
 import { Form } from 'react-final-form';
+import { IDish } from './interfaces';
 import { validateDish } from './utils/dishSchema';
-
-enum dishType {
-  pizza = 'pizza',
-  soup = 'soup',
-  sandwich = 'sandwich',
-}
-
-export interface Dish {
-  name: string;
-  preparation_time: string;
-  type: dishType | undefined;
-  no_of_slices?: number | undefined;
-  diameter?: number | undefined;
-  spiciness_scale?: number | undefined;
-  slices_of_bread?: number | undefined;
-}
+import { dishType } from './enums';
 
 interface IProps {
-  onSubmit: (values: Dish) => Promise<void>;
+  onSubmit: (values: IDish) => Promise<void>;
 }
 
 const OrderForm = ({ onSubmit }: IProps) => {
+  const dishTypes = Object.values(dishType);
+  console.log(dishTypes[0]);
   return (
     <Form
       onSubmit={onSubmit}
@@ -72,7 +60,7 @@ const OrderForm = ({ onSubmit }: IProps) => {
                   type="number"
                   label="Pizza Slices"
                   name="no_of_slices"
-                  required={values.type === dishType.pizza && true}
+                  required={values.type === dishType.pizza}
                   inputProps={{
                     min: 1,
                     max: 8,
@@ -82,7 +70,7 @@ const OrderForm = ({ onSubmit }: IProps) => {
                   type="number"
                   label="Diameter"
                   name="diameter"
-                  required={values.type === dishType.pizza && true}
+                  required={values.type === dishType.pizza}
                   inputProps={{
                     step: 0.1,
                     min: 18,
@@ -96,7 +84,7 @@ const OrderForm = ({ onSubmit }: IProps) => {
                 type="number"
                 label="Spiciness"
                 name="spiciness_scale"
-                required={values.type === dishType.soup && true}
+                required={values.type === dishType.soup}
                 inputProps={{
                   min: 1,
                   max: 10,
@@ -108,7 +96,7 @@ const OrderForm = ({ onSubmit }: IProps) => {
                 type="number"
                 label="Bread Slices"
                 name="slices_of_bread"
-                required={values.type === dishType.sandwich && true}
+                required={values.type === dishType.sandwich}
                 inputProps={{
                   min: 0,
                   max: 4,
