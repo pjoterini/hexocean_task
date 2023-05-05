@@ -1,17 +1,15 @@
 import { Box, Button, MenuItem, Stack } from '@mui/material';
 import { Select, TextField } from 'mui-rff';
 import { Form } from 'react-final-form';
+import { dishType } from './enums';
 import { IDish } from './interfaces';
 import { validateDish } from './utils/dishSchema';
-import { dishType } from './enums';
 
 interface IProps {
   onSubmit: (values: IDish) => Promise<void>;
 }
 
 const OrderForm = ({ onSubmit }: IProps) => {
-  const dishTypes = Object.values(dishType);
-  console.log(dishTypes[0]);
   return (
     <Form
       onSubmit={onSubmit}
@@ -41,8 +39,19 @@ const OrderForm = ({ onSubmit }: IProps) => {
                 step: 30,
               }}
             />
-
-            <Select label="Dish Type" name="type" required={true}>
+            <Select
+              label="Dish Type"
+              name="type"
+              required={true}
+              inputProps={{
+                onChange: () => {
+                  values.no_of_slices = undefined;
+                  values.diameter = undefined;
+                  values.spiciness_scale = undefined;
+                  values.slices_of_bread = undefined;
+                },
+              }}
+            >
               <MenuItem value={dishType.pizza}>
                 <Box textTransform="capitalize">{dishType.pizza}</Box>
               </MenuItem>
@@ -53,7 +62,6 @@ const OrderForm = ({ onSubmit }: IProps) => {
                 <Box textTransform="capitalize">{dishType.sandwich}</Box>
               </MenuItem>
             </Select>
-
             {values.type === dishType.pizza && (
               <>
                 <TextField

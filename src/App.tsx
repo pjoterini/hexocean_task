@@ -1,11 +1,7 @@
 import OrderFormContainer from './components/orderForm/OrderForm.container';
 
 function App() {
-  return (
-    <>
-      <OrderFormContainer />
-    </>
-  );
+  return <OrderFormContainer />;
 }
 
 export default App;

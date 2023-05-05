@@ -6,7 +6,7 @@ const dishTypes = Object.values(dishType);
 
 const dishSchema = object().shape({
   name: string().min(3).max(30).required(),
-  preparation_time: string().required(),
+  preparation_time: string().min(8).required(),
   type: mixed().oneOf(dishTypes).required(),
   no_of_slices: number().when('type', {
     is: dishTypes[0],

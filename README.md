@@ -17,4 +17,4 @@ I used react-final-form instead of redux-form because redux-form documentation s
 
 ## Time
 
-Time invested: around 8hr
+Time invested: around 10hr
